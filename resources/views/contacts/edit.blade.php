@@ -8,6 +8,11 @@
                 <div class="card-header">Edit Contact</div>
                 <div class="card-body">
                     <form class="form-horizontal" method="POST" action="{{ route('contacts.update', $contact) }}">
+                        <div class="col-md-6 mb-5">
+                            <a href="{{ route('address.create', [$contact->id]) }}" class="btn btn-primary">
+                                Add address
+                            </a>
+                        </div>
                         @include('contacts.partials.form')
                         <div class="form-group">
                             <div class="col-md-6">

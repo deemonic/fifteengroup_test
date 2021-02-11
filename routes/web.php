@@ -22,11 +22,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('contacts/{contact}/edit', 'ContactsController@edit')->name('contacts.edit');
     Route::post('contacts/{contact}/update', 'ContactsController@update')->name('contacts.update');
 
+    Route::get('contacts/{contact}/address/create', 'ContactAddressController@create')->name('address.create');
+    Route::post('contacts/address/store', 'ContactAddressController@store')->name('address.store');
+
     Route::get('companies', 'CompaniesController@index')->name('companies');
     Route::get('companies/create', 'CompaniesController@create')->name('companies.create');
     Route::post('companies/create', 'CompaniesController@store')->name('companies.store');
     Route::get('companies/{company}/edit', 'CompaniesController@edit')->name('companies.edit');
     Route::post('companies/{company}/update', 'CompaniesController@update')->name('companies.update');
+
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
