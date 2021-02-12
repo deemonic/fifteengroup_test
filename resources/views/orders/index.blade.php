@@ -22,6 +22,7 @@
                                 <th>Order Number</th>
                                 <th>Contact</th>
                                 <th>Product</th>
+                                <th>Price</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -31,6 +32,7 @@
                                     <td>{{ $order->order_number }}</td>
                                     <td>{{ $order->contact->first_name }} {{ $order->contact->last_name }}</td>
                                     <td>{{ $order->product }}</td>
+                                    <td>£ {{ number_format($order->price, 2, '.', ',') }}</td>
                                     <td>
                                         <a href="#" class="btn btn-primary">Edit</a>
                                     </td>

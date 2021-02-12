@@ -20,6 +20,13 @@ class Order extends Model
     ];
 
     /**
+     * @var string[]
+     */
+    protected $casts = [
+        'price' => 'float'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function contact()
@@ -27,6 +34,9 @@ class Order extends Model
         return $this->belongsTo(Contact::class);
     }
 
+    /**
+     * @return int
+     */
     public function generateOrderNumber()
     {
         return $order_number = mt_rand();

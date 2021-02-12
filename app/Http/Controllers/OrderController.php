@@ -32,6 +32,7 @@ class OrderController extends Controller
         $order->order_number = $order->generateOrderNumber();
         $order->contact_id = $request->contact_id;
         $order->product = $request->product;
+        $order->price = $request->price;
         $order->save();
 
         Notification::route('mail', 'info@pretendcompany.com')

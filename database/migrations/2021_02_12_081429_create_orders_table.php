@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('order_number');
             $table->unsignedInteger('contact_id');
             $table->string('product');
+            $table->float('price');
             $table->timestamps();
         });
     }
