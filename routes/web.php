@@ -31,6 +31,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('companies/{company}/edit', 'CompaniesController@edit')->name('companies.edit');
     Route::post('companies/{company}/update', 'CompaniesController@update')->name('companies.update');
 
+    Route::get('orders', 'OrderController@index')->name('orders');
+    Route::get('orders/create', 'OrderController@create')->name('orders.create');
+    Route::post('orders/store', 'OrderController@store')->name('orders.store');
+
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

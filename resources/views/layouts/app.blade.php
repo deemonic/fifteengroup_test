@@ -36,6 +36,7 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item"><a class="nav-link" href="{{ route('contacts') }}">Contacts</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('companies') }}">Companies</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('orders') }}">Orders</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
