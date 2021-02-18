@@ -15,7 +15,7 @@ class CreateLineItemsTable extends Migration
     {
         Schema::create('line_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('order_number');
+            $table->unsignedInteger('order_id');
             $table->string('product');
             $table->float('price');
             $table->timestamps();

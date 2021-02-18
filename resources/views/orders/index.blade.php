@@ -21,6 +21,7 @@
                             <tr>
                                 <th>Order Number</th>
                                 <th>Contact</th>
+                                <th>No. of items</th>
                                 <th>Order Total</th>
                                 <th>Actions</th>
                             </tr>
@@ -30,6 +31,7 @@
                                 <tr>
                                     <td>{{ $order->order_number }}</td>
                                     <td>{{ $order->contact->first_name }} {{ $order->contact->last_name }}</td>
+                                    <td>{{ count($order->lineItem) }} </td>
                                     <td>£ {{ number_format($order->order_total, 2, '.', ',') }}</td>
                                     <td>
                                         <a href="#" class="btn btn-primary">Edit</a>

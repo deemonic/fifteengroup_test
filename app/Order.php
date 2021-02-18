@@ -46,7 +46,7 @@ class Order extends Model
      */
     public function lineItem()
     {
-        return $this->hasMany(LineItem::class, 'order_number');
+        return $this->hasMany(LineItem::class, 'order_id');
     }
 
 }

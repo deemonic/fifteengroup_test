@@ -7,6 +7,7 @@ use App\LineItem;
 use App\Notifications\OrderCreated;
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,7 +15,17 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::all();
+
+        $orders = app(Pipeline::class)
+            ->send(Order::query())
+            ->through([
+                \App\QueryFilters\OrderTotal::class,
+                \App\QueryFilters\NumberOfItems::class,
+            ])
+            ->thenReturn()
+            ->get();
+
+
 
         return view('orders.index', compact('orders'));
     }
@@ -31,6 +42,15 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
+        // Create the order
+        $order = new Order();
+        $order->order_number = $request->order_number;
+        $order->contact_id = $request->contact_id;
+        $order->total_products = count($request->lineItems);
+        $order->save();
+        $id = $order->id;
+
+
         // Array to store price of each product
         $arr_orderTotal = [];
 
@@ -41,7 +61,7 @@ class OrderController extends Controller
             $arr_orderTotal[] = $item['price'];
 
             $lineItem = new LineItem();
-            $lineItem->order_number = $request->order_number;
+            $lineItem->order_id = $id;
             $lineItem->product = $item['product'];
             $lineItem->price = $item['price'];
             $lineItem->save();
@@ -51,15 +71,13 @@ class OrderController extends Controller
         $order_total = array_sum($arr_orderTotal);
 
         // Create the order
-        $order = new Order();
-        $order->order_number = $request->order_number;
-        $order->contact_id = $request->contact_id;
+        $order = Order::find($id);
         $order->order_total = $order_total;
         $order->save();
 
         // Send new order email notfication, I used mailtrap.io to test this
-        Notification::route('mail', 'info@pretendcompany.com')
-                ->notify(new OrderCreated($order));
+        //Notification::route('mail', 'info@pretendcompany.com')
+          //      ->notify(new OrderCreated($order));
 
         return redirect()->back()->with('alert', 'Order created!');
     }

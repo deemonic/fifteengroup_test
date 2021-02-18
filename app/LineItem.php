@@ -12,7 +12,7 @@ class LineItem extends Model
      * @var array
      */
     protected $fillable = [
-        'order_number',
+        'order_id',
         'product',
         'price'
     ];
@@ -29,6 +29,6 @@ class LineItem extends Model
      */
     public function order()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class, 'id');
     }
 }
