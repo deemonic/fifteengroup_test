@@ -78,8 +78,8 @@ class OrderController extends Controller
         $order->save();
 
         // Send new order email notfication, I used mailtrap.io to test this
-        //Notification::route('mail', 'info@pretendcompany.com')
-          //      ->notify(new OrderCreated($order));
+        Notification::route('mail', 'info@pretendcompany.com')
+                ->notify(new OrderCreated($order));
 
         /**
          * Send on demand notification to all users
@@ -87,9 +87,8 @@ class OrderController extends Controller
          *
          */
 
-        $delay = now()->addMinutes(30);
-
-        Notification::send(User::all(), new RemindStaffToProcessOrders($order))->delay($delay);
+        // NEED TO FINISH AND ADD DELAY OF 30 MINUTES!!!
+        Notification::send(User::all(), new RemindStaffToProcessOrders($order));
 
         return redirect()->back()->with('alert', 'Order created!');
     }
