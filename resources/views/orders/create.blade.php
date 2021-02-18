@@ -14,6 +14,9 @@
                                     <button type="submit" class="btn btn-primary">
                                         Save
                                     </button>
+                                    <a href="{{ route('orders') }}"  class="btn btn-danger">
+                                        Cancel
+                                    </a>
                                 </div>
                             </div>
                         </form>

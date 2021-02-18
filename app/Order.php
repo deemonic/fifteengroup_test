@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 
 class Order extends Model
 {
@@ -16,14 +15,14 @@ class Order extends Model
     protected $fillable = [
         'order_number',
         'contact_id',
-        'product'
+        'order_total'
     ];
 
     /**
      * @var string[]
      */
     protected $casts = [
-        'price' => 'float'
+        'order_total' => 'float'
     ];
 
     /**
@@ -40,6 +39,14 @@ class Order extends Model
     public function generateOrderNumber()
     {
         return $order_number = mt_rand();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function lineItem()
+    {
+        return $this->hasMany(LineItem::class, 'order_number');
     }
 
 }
