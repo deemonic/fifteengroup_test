@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Contact;
 use App\LineItem;
 use App\Notifications\OrderCreated;
+use App\Notifications\RemindStaffToProcessOrders;
 use App\Order;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Notification;
@@ -78,6 +80,16 @@ class OrderController extends Controller
         // Send new order email notfication, I used mailtrap.io to test this
         //Notification::route('mail', 'info@pretendcompany.com')
           //      ->notify(new OrderCreated($order));
+
+        /**
+         * Send on demand notification to all users
+         * 30 minutes after order has been created
+         *
+         */
+
+        $delay = now()->addMinutes(30);
+
+        Notification::send(User::all(), new RemindStaffToProcessOrders($order))->delay($delay);
 
         return redirect()->back()->with('alert', 'Order created!');
     }
